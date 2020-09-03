@@ -2,17 +2,24 @@ import React from 'react';
 import CircleButton from '../CircleButton/CircleButton'
 import config from '../config';
 import { withRouter } from 'react-router-dom';
+import ApiContext from '../ApiContext';
+function AddFolder(props) {
 
-function AddFolder() {
+//props.history.push('/')
+    //make this redirect to state function in api
+    //then have it go backwords
+    //how do other 
 
 
-    const handleForm = (e) =>{
+    //activate context
+    //class static
+    //function context consumer
 
-        console.log(config)
+    const handleForm = (e, addFolder) =>{
+
+        
         e.preventDefault();
         const name= e.target.folder.value;
-
-  
 
        fetch(`${config.API_ENDPOINT}/folders`,  {
         method: 'POST',
@@ -23,23 +30,30 @@ function AddFolder() {
         
     })
             .then(res => {
-            if(res.ok){
+                if(res.ok){
+                   return res.json();
+                    
+                } else {
+                    return Promise.reject('Unable to fetch');
+                }})
+            .then(folder => {
+                addFolder(folder);
+                props.history.push('/');
                 
-                console.log('OK!')
-              
+            })
 
-            } else {
-                console.log('NOT')
-            }})
+   
             .catch(err => console.log(err, err.message));
 
     }
 
 
     return (
-        <form className="newFolder" onSubmit={e => handleForm(e)} >
+        <ApiContext.Consumer>
+            {({addFolder}) =>
+        <form className="newFolder" onSubmit={e => handleForm(e, addFolder)} >
             <h2>Add a new folder</h2>
-            <label htmlFor="folder">Name your new form</label>
+            <label htmlFor="folder">Add a new folder</label>
             <input
                 type="text"
                 className="registration__control"
@@ -51,17 +65,13 @@ function AddFolder() {
                 tag='button'
                 type='submit'
                 className='AddFolder__add-folder-submit'
-            
-                
                 >
                 Submit
           </CircleButton>
-         
-
-
-
 
         </form>
+        }
+        </ApiContext.Consumer>
 
 
 
