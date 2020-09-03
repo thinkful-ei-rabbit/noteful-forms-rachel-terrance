@@ -12,11 +12,10 @@
   text-align: center;
   text-decoration: none;
   width: 60px;
-}
-
-a.NavCircleButton {
   padding: 16px 8px 8px;
 }
+
+
 
 .NavCircleButton:hover {
   cursor: pointer;

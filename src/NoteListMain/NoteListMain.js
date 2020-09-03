@@ -32,8 +32,9 @@ export default class NoteListMain extends React.Component {
             </li>
           )}
         </ul>
-        <div className='NoteListMain__button-container'>
         <Link to='/add-note'>
+        <div className='NoteListMain__button-container'>
+        
           <CircleButton
             tag={Link}
             to='/add-note'
@@ -44,9 +45,9 @@ export default class NoteListMain extends React.Component {
             <br />
             Note
           </CircleButton>
-          </Link>
         </div>
-      </section>
+        </Link>
+    </section>
     )
   }
 }

@@ -3,6 +3,11 @@ import CircleButton from '../CircleButton/CircleButton'
 import config from '../config';
 import { withRouter } from 'react-router-dom';
 import ApiContext from '../ApiContext';
+
+
+
+
+
 function AddFolder(props) {
 
 //props.history.push('/')
@@ -17,7 +22,7 @@ function AddFolder(props) {
 
     const handleForm = (e, addFolder) =>{
 
-        
+        //update, recieve, save into state
         e.preventDefault();
         const name= e.target.folder.value;
 
@@ -41,8 +46,6 @@ function AddFolder(props) {
                 props.history.push('/');
                 
             })
-
-   
             .catch(err => console.log(err, err.message));
 
     }
@@ -53,7 +56,7 @@ function AddFolder(props) {
             {({addFolder}) =>
         <form className="newFolder" onSubmit={e => handleForm(e, addFolder)} >
             <h2>Add a new folder</h2>
-            <label htmlFor="folder">Add a new folder</label>
+            <label htmlFor="folder">Folder name</label>
             <input
                 type="text"
                 className="registration__control"
@@ -72,15 +75,7 @@ function AddFolder(props) {
         </form>
         }
         </ApiContext.Consumer>
-
-
-
-
-
-
     )
-
-
 }
 
 export default withRouter(AddFolder)
