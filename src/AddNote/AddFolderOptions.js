@@ -17,7 +17,7 @@ export default function AddFolderOptions(props) {
 }
 
 AddFolderOptions.propTypes = {
-    folders: PropTypes.array
+    folders: PropTypes.arrayOf(PropTypes.object)
 }
 
 
