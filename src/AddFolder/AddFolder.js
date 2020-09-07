@@ -9,16 +9,6 @@ import ApiContext from '../ApiContext';
 
 function AddFolder(props) {
 
-    //props.history.push('/')
-    //make this redirect to state function in api
-    //then have it go backwords
-    //how do other 
-
-
-    //activate context
-    //class static
-    //function context consumer
-
     const handleForm = (e, addFolder) => {
 
         //update, recieve, save into state

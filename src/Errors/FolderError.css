@@ -1,0 +1,11 @@
+nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #102541;
+    color: #bdbdbd;
+    grid-area: sidebar;
+    height: 100vh;
+    overflow: auto;
+}

@@ -1,0 +1,16 @@
+main {
+    grid-area: main;
+    height: calc(100vh - 120px);
+    overflow: auto;
+    background-color: #102541;
+    height: calc(100vh - 120px);
+    color: #bdbdbd;
+
+}
+
+.error__main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1em;
+}

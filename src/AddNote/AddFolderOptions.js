@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import PropTypes from 'prop-types';
 
 
 
@@ -12,10 +13,11 @@ export default function AddFolderOptions(props) {
                     {folder.name}
                 </option>)}
         </Fragment>
-
     )
+}
 
-
+AddFolderOptions.propTypes = {
+    folders: PropTypes.array
 }
 
 

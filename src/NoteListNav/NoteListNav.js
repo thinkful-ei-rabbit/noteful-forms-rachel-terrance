@@ -4,13 +4,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import CircleButton from '../CircleButton/CircleButton'
 import ApiContext from '../ApiContext'
 import { countNotesForFolder } from '../notes-helpers'
+
 import './NoteListNav.css'
 
 export default class NoteListNav extends React.Component {
   static contextType = ApiContext;
 
   render() {
-    const { folders=[], notes=[] } = this.context
+    const { folders = [], notes = [] } = this.context
     return (
       <div className='NoteListNav'>
         <ul className='NoteListNav__list'>
@@ -29,18 +30,18 @@ export default class NoteListNav extends React.Component {
           )}
         </ul>
         <Link to='/add-folder'>
-        <div className='NoteListNav__button-wrapper'>
-          <CircleButton
-            tag={Link}
-            to='/add-folder'
-            type='button'
-            className='NoteListNav__add-folder-button'
-          >
-            <FontAwesomeIcon icon='plus' />
-            <br />
+          <div className='NoteListNav__button-wrapper'>
+            <CircleButton
+              tag={Link}
+              to='/add-folder'
+              type='button'
+              className='NoteListNav__add-folder-button'
+            >
+              <FontAwesomeIcon icon='plus' />
+              <br />
             Folder
           </CircleButton>
-        </div>
+          </div>
         </Link>
       </div>
     )

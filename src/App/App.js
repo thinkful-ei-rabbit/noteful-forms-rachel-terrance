@@ -9,6 +9,8 @@ import ApiContext from '../ApiContext';
 import AddFolder from '../AddFolder/AddFolder';
 import AddNote from '../AddNote/AddNote';
 import config from '../config';
+import NoteError from '../Errors/NoteError';
+import FolderError from '../Errors/FolderError'
 import './App.css';
 
 class App extends Component {
@@ -106,14 +108,18 @@ class App extends Component {
         return (
             <ApiContext.Provider value={value}>
                 <div className="App">
-                    <nav className="App__nav">{this.renderNavRoutes()}</nav>
+                    <FolderError>
+                        <nav className="App__nav">{this.renderNavRoutes()}</nav>
+                    </FolderError>
                     <header className="App__header">
                         <h1>
                             <Link to="/">Noteful</Link>{' '}
                             <FontAwesomeIcon icon="check-double" />
                         </h1>
                     </header>
-                    <main className="App__main">{this.renderMainRoutes()}</main>
+                    <NoteError>
+                        <main className="App__main">{this.renderMainRoutes()}</main>
+                    </NoteError>
                 </div>
             </ApiContext.Provider>
         );
