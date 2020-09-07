@@ -6,6 +6,7 @@ import ApiContext from '../ApiContext';
 import AddFolderOptions from './AddFolderOptions';
 import './AddNote.css';
 
+import PropTypes from 'prop-types';
 
 
 
@@ -94,4 +95,7 @@ export default class AddNote extends React.Component {
 
         )
     }
+}
+AddNote.propTypes = {
+    history: PropTypes.object
 }

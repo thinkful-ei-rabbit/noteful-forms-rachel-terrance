@@ -3,15 +3,15 @@ import CircleButton from '../CircleButton/CircleButton'
 import config from '../config';
 import { withRouter } from 'react-router-dom';
 import ApiContext from '../ApiContext';
-
+import PropTypes from 'prop-types';
 
 
 
 function AddFolder(props) {
+    console.log(props.history)
 
     const handleForm = (e, addFolder) => {
 
-        //update, recieve, save into state
         e.preventDefault();
         const name = e.target.folder.value;
 
@@ -70,3 +70,6 @@ function AddFolder(props) {
 
 export default withRouter(AddFolder)
 
+AddFolder.propTypes = {
+    history: PropTypes.object
+}
