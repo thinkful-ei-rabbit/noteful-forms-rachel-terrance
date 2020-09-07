@@ -1,11 +1,35 @@
-form{
+form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    color: #bdbdbd;
+}
+
+form input {
+    color: #0b1f3a;
+    background-color: #bdbdbd;
+    height: 2.2em;
+    border: 0;
+    margin-bottom: 1em;
+    width: 50%;
+}
+
+form select {
+    color: #0b1f3a;
+    background-color: #bdbdbd;
+    height: 2.2em;
+    border: 0;
+    width: 50%;
+
 }
 
 .NavCircleButton {
     margin: 1rem;
 
+}
+
+form button[type="submit"]:hover {
+    background-color: #29862e;
+    color: white;
 }

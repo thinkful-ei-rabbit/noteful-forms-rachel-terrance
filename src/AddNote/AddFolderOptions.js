@@ -1,22 +1,21 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 
 
 export default function AddFolderOptions(props) {
-//add error boundary here
-
-    const folderArr = props.folders.map((folder, key) => {
-        return (
-            <option key={key} value={folder}>{folder}</option>
-        )
-
-    })
-
     return (
-        <select id="folderSelection" name="folderSelection">
-            {folderArr}
-        </select>
+        <Fragment>
+            {props.folders.map((folder, i) =>
+                <option key={i}
+                    id={folder.id}
+                    name={folder.name}>
+                    {folder.name}
+                </option>)}
+        </Fragment>
+
     )
 
 
 }
+
+
