@@ -5,37 +5,42 @@ exports[`NoteListMain component renders a .NoteListMain by default 1`] = `
   className="NoteListMain"
 >
   <ul />
-  <div
-    className="NoteListMain__button-container"
+  <Link
+    replace={false}
+    to="/add-note"
   >
-    <NavCircleButton
-      className="NoteListMain__add-note-button"
-      tag={[Function]}
-      to="/add-note"
-      type="button"
+    <div
+      className="NoteListMain__button-container"
     >
-      <FontAwesomeIcon
-        border={false}
-        className=""
-        fixedWidth={false}
-        flip={null}
-        icon="plus"
-        inverse={false}
-        listItem={false}
-        mask={null}
-        pull={null}
-        pulse={false}
-        rotation={null}
-        size={null}
-        spin={false}
-        symbol={false}
-        title=""
-        transform={null}
-      />
-      <br />
-      Note
-    </NavCircleButton>
-  </div>
+      <NavCircleButton
+        className="NoteListMain__add-note-button"
+        tag={[Function]}
+        to="/add-note"
+        type="button"
+      >
+        <FontAwesomeIcon
+          border={false}
+          className=""
+          fixedWidth={false}
+          flip={null}
+          icon="plus"
+          inverse={false}
+          listItem={false}
+          mask={null}
+          pull={null}
+          pulse={false}
+          rotation={null}
+          size={null}
+          spin={false}
+          symbol={false}
+          title=""
+          transform={null}
+        />
+        <br />
+        Note
+      </NavCircleButton>
+    </div>
+  </Link>
 </section>
 `;
 

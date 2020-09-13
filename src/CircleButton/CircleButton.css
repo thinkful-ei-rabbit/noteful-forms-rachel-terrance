@@ -14,7 +14,9 @@
   padding: 14px 8px 8px;
 }
 
-
+.NavCircleButton:disabled:hover {
+  background-color: #A4A4A4;
+}
 
 .NavCircleButton:hover {
   cursor: pointer;

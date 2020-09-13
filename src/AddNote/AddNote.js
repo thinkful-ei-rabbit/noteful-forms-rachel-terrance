@@ -1,7 +1,7 @@
 import React from 'react';
 import CircleButton from '../CircleButton/CircleButton'
 import config from '../config';
-
+import FormError from '../Errors/FormError'
 import ApiContext from '../ApiContext';
 import AddFolderOptions from './AddFolderOptions';
 import './AddNote.css';
@@ -14,6 +14,58 @@ export default class AddNote extends React.Component {
 
     static contextType = ApiContext;
 
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: {
+                value: '',
+                touched: false,
+
+            },
+
+            content: {
+                value: '',
+                touched: false,
+            }
+
+        }
+    }
+
+    updateName(name) {
+        this.setState({
+            name: {
+                value: name,
+                touched: true
+            }
+        })
+    };
+
+    updateContent(content) {
+        this.setState({
+            content: {
+                value: content,
+                touched: true
+            }
+        })
+    }
+
+    validateName() {
+        const name = this.state.name.value.trim();
+        if (name.length === 0) {
+            return "Note must have title"
+        } else if (name.length <= 2) {
+            return "Title must be at least 3 characters long"
+        }
+    }
+
+    validateContent() {
+        const content = this.state.content.value.trim();
+        if (content.length === 0) {
+            return "Note must have some content"
+        } else if (content.length < 10) {
+            return 'Note must be at least 10 characters long'
+        }
+    }
 
 
 
@@ -30,7 +82,8 @@ export default class AddNote extends React.Component {
             folderId: folder.id,
             content: content
 
-        }
+        };
+
 
         fetch(`${config.API_ENDPOINT}/notes`, {
             method: 'POST',
@@ -55,7 +108,8 @@ export default class AddNote extends React.Component {
     }
 
     render() {
-
+        const nameError = this.validateName();
+        const contentError = this.validateContent();
         return (
             <form className="newNote" onSubmit={e => this.handleForm(e)} >
                 <h2>Add a new note</h2>
@@ -65,7 +119,9 @@ export default class AddNote extends React.Component {
                     className="registration__control"
                     name="noteName"
                     id="noteName"
+                    onChange={e => this.updateName(e.target.value)}
                 />
+                {this.state.name.touched && <FormError message={nameError} />}
 
                 <label htmlFor="noteContent" className="inputDescription">Content</label>
                 <input
@@ -73,7 +129,9 @@ export default class AddNote extends React.Component {
                     className="registration__control"
                     name="noteContent"
                     id="noteContent"
+                    onChange={e => this.updateContent(e.target.value)}
                 />
+                {this.state.name.touched && <FormError message={contentError} />}
 
 
                 <label htmlFor="folderSelection">Folder</label>
@@ -88,6 +146,9 @@ export default class AddNote extends React.Component {
                     tag='button'
                     type='submit'
                     className='AddFolder__add-folder-submit'
+                    disabled={
+                        this.validateContent() || this.validateName()
+                    }
                 >
                     Submit
       </CircleButton>
