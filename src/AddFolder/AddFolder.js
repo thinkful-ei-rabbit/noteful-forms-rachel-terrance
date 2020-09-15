@@ -1,14 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import CircleButton from '../CircleButton/CircleButton'
 import config from '../config';
-import { withRouter } from 'react-router-dom';
+import './AddFolder'
 import ApiContext from '../ApiContext';
 import PropTypes from 'prop-types';
 import FormError from '../Errors/FormError'
 
 
 
-class AddFolder extends React.Component {
+class AddFolder extends Component {
+
     static contextType = ApiContext;
 
     constructor(props) {
@@ -88,12 +89,12 @@ class AddFolder extends React.Component {
                 {this.state.folder.touched && <FormError message={folderError} />}
 
                 <CircleButton
-                    tag='button'
                     type='submit'
                     className='AddFolder__add-folder-submit'
                     disabled={
                         this.validateFolder()
                     }
+                    input='Submit'
 
                 >
                     Submit
@@ -104,7 +105,7 @@ class AddFolder extends React.Component {
     }
 }
 
-export default withRouter(AddFolder)
+export default AddFolder;
 
 AddFolder.propTypes = {
     history: PropTypes.object

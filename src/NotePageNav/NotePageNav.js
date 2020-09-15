@@ -9,17 +9,18 @@ import PropTypes from 'prop-types';
 
 
 export default class NotePageNav extends React.Component {
-  static defaultProps = {
-    history: {
-      goBack: () => { }
-    },
-    match: {
-      params: {}
-    }
-  }
+  // static defaultProps = {
+  //   history: {
+  //     goBack: () => { }
+  //   },
+  //   match: {
+  //     params: {}
+  //   }
+  // }
   static contextType = ApiContext;
 
   render() {
+
     const { notes, folders, } = this.context
     const { noteId } = this.props.match.params
     const note = findNote(notes, noteId) || {}
@@ -29,13 +30,10 @@ export default class NotePageNav extends React.Component {
         <CircleButton
           tag='button'
           role='link'
-          onClick={() => this.props.history.goBack()}
+          onClick={() => this.props.history.push('/add-folder')}
           className='NotePageNav__back-button'
-        >
-          <FontAwesomeIcon icon='chevron-left' />
-          <br />
-          Back
-        </CircleButton>
+          input={<FontAwesomeIcon icon='chevron-left' />}
+        />
         {folder && (
           <h3 className='NotePageNav__folder-name'>
             {folder.name}

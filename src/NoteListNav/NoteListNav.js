@@ -36,11 +36,7 @@ export default class NoteListNav extends React.Component {
               to='/add-folder'
               type='button'
               className='NoteListNav__add-folder-button'
-            >
-              <FontAwesomeIcon icon='plus' />
-              <br />
-            Folder
-          </CircleButton>
+              input={<FontAwesomeIcon icon='plus' />} />
           </div>
         </Link>
       </div>

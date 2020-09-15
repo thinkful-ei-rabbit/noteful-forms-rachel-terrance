@@ -88,7 +88,10 @@ class App extends Component {
                     />
                 ))}
                 <Route path="/note/:noteId" component={NotePageMain} />
-                <Route path="/add-folder" component={AddFolder} />
+                <Route
+                    path="/add-folder"
+                    render={props => <AddFolder {...props} />}
+                />
                 <Route
                     path="/add-note"
                     render={props => <AddNote {...props} />}

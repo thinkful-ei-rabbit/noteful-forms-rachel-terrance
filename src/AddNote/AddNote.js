@@ -84,6 +84,10 @@ export default class AddNote extends React.Component {
 
         };
 
+        if (!name || !content) {
+            //insert content here!!
+        }
+
 
         fetch(`${config.API_ENDPOINT}/notes`, {
             method: 'POST',
@@ -149,9 +153,8 @@ export default class AddNote extends React.Component {
                     disabled={
                         this.validateContent() || this.validateName()
                     }
-                >
-                    Submit
-      </CircleButton>
+                    input='Submit'
+                />
             </form>
 
         )
