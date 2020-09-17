@@ -4,7 +4,7 @@ import config from '../config';
 import './AddFolder'
 import ApiContext from '../ApiContext';
 import PropTypes from 'prop-types';
-import FormError from '../Errors/FormError'
+
 
 
 
@@ -72,7 +72,6 @@ class AddFolder extends Component {
     }
 
     render() {
-        const folderError = this.validateFolder();
 
         return (
 
@@ -86,14 +85,10 @@ class AddFolder extends Component {
                     id="folder"
                     onChange={e => this.updateFolder(e.target.value)}
                 />
-                {this.state.folder.touched && <FormError message={folderError} />}
 
                 <CircleButton
                     type='submit'
                     className='AddFolder__add-folder-submit'
-                    disabled={
-                        this.validateFolder()
-                    }
                     input='Submit'
 
                 >

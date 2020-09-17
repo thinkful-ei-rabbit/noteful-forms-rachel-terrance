@@ -70,8 +70,8 @@ class App extends Component {
                     />
                 ))}
                 <Route path="/note/:noteId" component={NotePageNav} />
-                <Route path="/add-folder" component={NotePageNav} />
-                <Route path="/add-note" component={NotePageNav} />
+                <Route path="/add-folder" render={props => <NotePageNav history={props.history} />} />
+                <Route path="/add-note" render={props => <NotePageNav history={props.history} />} />
             </>
         );
     }
@@ -90,11 +90,11 @@ class App extends Component {
                 <Route path="/note/:noteId" component={NotePageMain} />
                 <Route
                     path="/add-folder"
-                    render={props => <AddFolder {...props} />}
+                    render={props => <AddFolder history={props.history} />}
                 />
                 <Route
                     path="/add-note"
-                    render={props => <AddNote {...props} />}
+                    render={props => <AddNote history={props.history} />}
                 />
             </>
         );
@@ -106,7 +106,8 @@ class App extends Component {
             folders: this.state.folders,
             deleteNote: this.handleDeleteNote,
             addFolder: this.handleAddFolder,
-            addNote: this.handleAddNote
+            addNote: this.handleAddNote,
+            back: this.back
         };
         return (
             <ApiContext.Provider value={value}>

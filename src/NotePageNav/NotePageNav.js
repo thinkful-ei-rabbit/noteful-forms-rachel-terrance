@@ -9,14 +9,14 @@ import PropTypes from 'prop-types';
 
 
 export default class NotePageNav extends React.Component {
-  // static defaultProps = {
-  //   history: {
-  //     goBack: () => { }
-  //   },
-  //   match: {
-  //     params: {}
-  //   }
-  // }
+  static defaultProps = {
+    history: {
+      goBack: () => { }
+    },
+    match: {
+      params: {}
+    }
+  }
   static contextType = ApiContext;
 
   render() {
@@ -30,7 +30,7 @@ export default class NotePageNav extends React.Component {
         <CircleButton
           tag='button'
           role='link'
-          onClick={() => this.props.history.push('/add-folder')}
+          onClick={() => this.props.history.push('/')}
           className='NotePageNav__back-button'
           input={<FontAwesomeIcon icon='chevron-left' />}
         />

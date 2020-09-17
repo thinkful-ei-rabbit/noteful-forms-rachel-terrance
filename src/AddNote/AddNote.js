@@ -17,21 +17,26 @@ export default class AddNote extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+
             name: {
                 value: '',
                 touched: false,
+                disabling: true,
 
             },
 
             content: {
                 value: '',
                 touched: false,
+                disabling: true,
             }
 
         }
     }
 
     updateName(name) {
+        this.validateName();
+
         this.setState({
             name: {
                 value: name,
@@ -41,6 +46,9 @@ export default class AddNote extends React.Component {
     };
 
     updateContent(content) {
+
+        this.validateContent();
+
         this.setState({
             content: {
                 value: content,
@@ -49,21 +57,77 @@ export default class AddNote extends React.Component {
         })
     }
 
+
     validateName() {
         const name = this.state.name.value.trim();
         if (name.length === 0) {
+
+            if (this.state.name.disabling === false) {
+                this.setState({
+                    name: {
+                        disabling: true
+                    }
+                })
+            }
+
             return "Note must have title"
+
         } else if (name.length <= 2) {
+
+            if (this.state.name.disabling === false) {
+                this.setState({
+                    name: {
+                        disabling: true
+                    }
+                })
+            }
             return "Title must be at least 3 characters long"
+        } else {
+            if (this.state.name.disabling === true) {
+                this.setState({
+                    name: {
+                        disabling: false
+                    }
+                })
+            }
         }
     }
 
     validateContent() {
+
         const content = this.state.content.value.trim();
         if (content.length === 0) {
+
+            if (this.state.content.disabling === false) {
+                this.setState({
+                    conent: {
+                        disabling: true
+                    }
+                })
+            }
+
             return "Note must have some content"
-        } else if (content.length < 10) {
-            return 'Note must be at least 10 characters long'
+
+        } else if (content.length < 3) {
+
+            if (this.state.content.disabling === false) {
+                this.setState({
+                    conent: {
+                        disabling: true
+                    }
+                })
+            }
+
+            return 'Note must be at least 3 characters long'
+
+        } else {
+            if (this.state.content.disabling === true) {
+                this.setState({
+                    conent: {
+                        disabling: false
+                    }
+                })
+            }
         }
     }
 
@@ -72,9 +136,12 @@ export default class AddNote extends React.Component {
     handleForm = (e) => {
         e.preventDefault();
 
+
+
         const name = e.target.noteName.value;
         const content = e.target.noteContent.value;
         const folder = this.context.folders.find(folder => folder.name === e.target.folderSelection.value);
+
 
         const obj = {
             name: name,
@@ -84,9 +151,7 @@ export default class AddNote extends React.Component {
 
         };
 
-        if (!name || !content) {
-            //insert content here!!
-        }
+
 
 
         fetch(`${config.API_ENDPOINT}/notes`, {
@@ -114,8 +179,9 @@ export default class AddNote extends React.Component {
     render() {
         const nameError = this.validateName();
         const contentError = this.validateContent();
+
         return (
-            <form className="newNote" onSubmit={e => this.handleForm(e)} >
+            <form className="newNote" onSubmit={e => this.handleForm(e)}>
                 <h2>Add a new note</h2>
                 <label htmlFor="noteName">Name</label>
                 <input
@@ -125,7 +191,9 @@ export default class AddNote extends React.Component {
                     id="noteName"
                     onChange={e => this.updateName(e.target.value)}
                 />
-                {this.state.name.touched && <FormError message={nameError} />}
+                {this.state.name.disabling === true
+                    ? <FormError message={nameError} />
+                    : null}
 
                 <label htmlFor="noteContent" className="inputDescription">Content</label>
                 <input
@@ -135,7 +203,9 @@ export default class AddNote extends React.Component {
                     id="noteContent"
                     onChange={e => this.updateContent(e.target.value)}
                 />
-                {this.state.name.touched && <FormError message={contentError} />}
+                {this.state.content.disabling === true
+                    ? <FormError message={contentError} />
+                    : null}
 
 
                 <label htmlFor="folderSelection">Folder</label>
@@ -151,9 +221,13 @@ export default class AddNote extends React.Component {
                     type='submit'
                     className='AddFolder__add-folder-submit'
                     disabled={
-                        this.validateContent() || this.validateName()
+                        this.state.content.disabling || this.state.name.disabling
+                            ? true
+                            : false
                     }
                     input='Submit'
+
+
                 />
             </form>
 
