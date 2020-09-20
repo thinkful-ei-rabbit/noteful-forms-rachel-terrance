@@ -4,6 +4,7 @@ import config from '../config';
 import FormError from '../Errors/FormError'
 import ApiContext from '../ApiContext';
 import AddFolderOptions from './AddFolderOptions';
+import IsRequired from './IsRequired';
 import './AddNote.css';
 
 import PropTypes from 'prop-types';
@@ -11,13 +12,21 @@ import PropTypes from 'prop-types';
 
 
 export default class AddNote extends React.Component {
+    static defaultProps = {
+        history: {
+            goBack: () => { }
+        },
+        match: {
+            params: {}
+        }
+    }
 
     static contextType = ApiContext;
 
     constructor(props) {
         super(props);
         this.state = {
-
+            hovering: false,
             name: {
                 value: '',
                 touched: false,
@@ -134,20 +143,18 @@ export default class AddNote extends React.Component {
 
 
     handleForm = (e) => {
-        e.preventDefault();
 
-
-
-        const name = e.target.noteName.value;
-        const content = e.target.noteContent.value;
+        const name = this.state.name.value;
+        const content = this.state.content.value;
         const folder = this.context.folders.find(folder => folder.name === e.target.folderSelection.value);
+        const date = new Date();
 
 
         const obj = {
-            name: name,
-            modified: new Date(),
+            name,
+            modified: date,
             folderId: folder.id,
-            content: content
+            content
 
         };
 
@@ -171,7 +178,7 @@ export default class AddNote extends React.Component {
             })
             .then(note => {
                 this.context.addNote(note);
-                this.props.history.push('/');
+                this.props.history.goBack();
             })
             .catch(err => console.log(err.message));
     }
@@ -189,11 +196,13 @@ export default class AddNote extends React.Component {
                     className="registration__control"
                     name="noteName"
                     id="noteName"
+                    placeholder="Name"
                     onChange={e => this.updateName(e.target.value)}
                 />
-                {this.state.name.disabling === true
-                    ? <FormError message={nameError} />
+                {!this.state.name.touched
+                    ? <IsRequired />
                     : null}
+                {this.state.name.touched && <FormError message={nameError} />}
 
                 <label htmlFor="noteContent" className="inputDescription">Content</label>
                 <input
@@ -201,11 +210,13 @@ export default class AddNote extends React.Component {
                     className="registration__control"
                     name="noteContent"
                     id="noteContent"
+                    placeholder="Content"
                     onChange={e => this.updateContent(e.target.value)}
                 />
-                {this.state.content.disabling === true
-                    ? <FormError message={contentError} />
+                {!this.state.content.touched
+                    ? <IsRequired />
                     : null}
+                {this.state.content.touched && <FormError message={contentError} />}
 
 
                 <label htmlFor="folderSelection">Folder</label>
@@ -227,12 +238,14 @@ export default class AddNote extends React.Component {
                     }
                     input='Submit'
 
-
                 />
+
             </form>
 
         )
     }
+
+
 }
 AddNote.propTypes = {
     history: PropTypes.object
