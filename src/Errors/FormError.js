@@ -1,5 +1,6 @@
 import React from 'react';
-import './FormError.css'
+import './FormError.css';
+import PropTypes from 'prop-types';
 
 function FormError(props) {
     if (props.message) {
@@ -11,3 +12,7 @@ function FormError(props) {
 }
 
 export default FormError
+
+FormError.propTypes = {
+    message: PropTypes.string
+}

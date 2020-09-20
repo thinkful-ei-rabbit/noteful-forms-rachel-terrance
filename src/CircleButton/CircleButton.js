@@ -20,5 +20,10 @@ export default function NavCircleButton(props) {
 
 
 NavCircleButton.propTypes = {
-  className: PropTypes.string.isRequired
+  className: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool
+
+  //I did not specify proptype for input because it can be string or FA icon
+
 }
