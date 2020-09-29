@@ -48,6 +48,7 @@ class AddFolder extends Component {
 
         fetch(`${config.API_ENDPOINT}/folders`, {
             method: 'POST',
+            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -67,7 +68,7 @@ class AddFolder extends Component {
                 this.props.history.push('/');
 
             })
-            .catch(err => console.log(err, err.message));
+            .catch(err => console.log(err));
 
     }
 
