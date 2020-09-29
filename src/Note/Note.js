@@ -11,33 +11,37 @@ import PropTypes from 'prop-types';
 
 export default class Note extends React.Component {
   static defaultProps = {
+
     onDeleteNote: () => { },
   }
+
   static contextType = ApiContext;
 
   handleClickDelete = e => {
-    e.preventDefault()
+
+    console.log(this.props)
     const noteId = this.props.id
 
+    console.log(noteId)
     fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'
-      },
+      }
     })
       .then(res => {
-        if (!res.ok)
-          return res.json().then(e => Promise.reject(e))
-        return res.json()
-      })
-      .then(() => {
-        this.context.deleteNote(noteId)
-        // allow parent to perform extra behaviour
-        this.props.onDeleteNote(noteId)
+        if (!res.ok) {
+          return null
+        }
+
+        return null
+
       })
       .catch(error => {
-        console.error({ error })
+        console.error(error)
       })
+
+    this.context.deleteNote(noteId)
   }
 
   render() {
@@ -72,9 +76,8 @@ export default class Note extends React.Component {
   }
 }
 Note.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  modified: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  title: PropTypes.string,
   onDeleteNote: PropTypes.func
 
 }

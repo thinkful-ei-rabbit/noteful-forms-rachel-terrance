@@ -20,7 +20,7 @@ export default function NavCircleButton(props) {
 
 
 NavCircleButton.propTypes = {
-  className: PropTypes.string.isRequired,
+  className: PropTypes.string,
   onClick: PropTypes.func,
   disabled: PropTypes.bool
 

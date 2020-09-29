@@ -27,7 +27,7 @@ export default class AddNote extends React.Component {
         super(props);
         this.state = {
             hovering: false,
-            name: {
+            title: {
                 value: '',
                 touched: false,
                 disabling: true,
@@ -43,12 +43,12 @@ export default class AddNote extends React.Component {
         }
     }
 
-    updateName(name) {
-        this.validateName();
+    updatetitle(title) {
+        this.validatetitle();
 
         this.setState({
-            name: {
-                value: name,
+            title: {
+                value: title,
                 touched: true
             }
         })
@@ -67,13 +67,13 @@ export default class AddNote extends React.Component {
     }
 
 
-    validateName() {
-        const name = this.state.name.value.trim();
-        if (name.length === 0) {
+    validatetitle() {
+        const title = this.state.title.value.trim();
+        if (title.length === 0) {
 
-            if (this.state.name.disabling === false) {
+            if (this.state.title.disabling === false) {
                 this.setState({
-                    name: {
+                    title: {
                         disabling: true
                     }
                 })
@@ -81,20 +81,20 @@ export default class AddNote extends React.Component {
 
             return "Note must have title"
 
-        } else if (name.length <= 2) {
+        } else if (title.length <= 2) {
 
-            if (this.state.name.disabling === false) {
+            if (this.state.title.disabling === false) {
                 this.setState({
-                    name: {
+                    title: {
                         disabling: true
                     }
                 })
             }
             return "Title must be at least 3 characters long"
         } else {
-            if (this.state.name.disabling === true) {
+            if (this.state.title.disabling === true) {
                 this.setState({
-                    name: {
+                    title: {
                         disabling: false
                     }
                 })
@@ -143,22 +143,23 @@ export default class AddNote extends React.Component {
 
 
     handleForm = (e) => {
+        e.preventDefault();
 
-        const name = this.state.name.value;
+        const title = this.state.title.value;
         const content = this.state.content.value;
-        const folder = this.context.folders.find(folder => folder.name === e.target.folderSelection.value);
-        const date = new Date();
+        //const folder = e.target.folderSelection.value.id;
+        const folder = this.context.folders.find(folder => folder.title === e.target.folderSelection.value);
+        const now = new Date();
+
 
 
         const obj = {
-            name,
-            modified: date,
-            folderId: folder.id,
-            content
-
+            title,
+            content,
+            folder: Number(folder.id),
         };
 
-
+        const str = JSON.stringify(obj)
 
 
         fetch(`${config.API_ENDPOINT}/notes`, {
@@ -166,49 +167,46 @@ export default class AddNote extends React.Component {
             headers: {
                 'Content-type': 'application/json'
             },
-            body: JSON.stringify(obj)
+            body: str
         })
             .then(res => {
                 if (res.ok) {
-                    return res.json();
-
-                } else {
-                    return Promise.reject('Unable to fetch');
+                    return res.json()
                 }
             })
             .then(note => {
-                this.context.addNote(note);
-                this.props.history.goBack();
+                this.context.addNote({ ...obj, modified: now })
+                this.props.history.push('/')
             })
             .catch(err => console.log(err.message));
     }
 
     render() {
-        const nameError = this.validateName();
+        const titleError = this.validatetitle();
         const contentError = this.validateContent();
 
         return (
-            <form className="newNote" onSubmit={e => this.handleForm(e)}>
+            <form classtitle="newNote" onSubmit={e => this.handleForm(e)}>
                 <h2>Add a new note</h2>
-                <label htmlFor="noteName">Name</label>
+                <label htmlFor="notetitle">title</label>
                 <input
                     type="text"
-                    className="registration__control"
-                    name="noteName"
-                    id="noteName"
-                    placeholder="Name"
-                    onChange={e => this.updateName(e.target.value)}
+                    classtitle="registration__control"
+                    title="notetitle"
+                    id="notetitle"
+                    placeholder="title"
+                    onChange={e => this.updatetitle(e.target.value)}
                 />
-                {!this.state.name.touched
+                {!this.state.title.touched
                     ? <IsRequired />
                     : null}
-                {this.state.name.touched && <FormError message={nameError} />}
+                {this.state.title.touched && <FormError message={titleError} />}
 
-                <label htmlFor="noteContent" className="inputDescription">Content</label>
+                <label htmlFor="noteContent" classtitle="inputDescription">Content</label>
                 <input
                     type="text"
-                    className="registration__control"
-                    name="noteContent"
+                    classtitle="registration__control"
+                    title="noteContent"
                     id="noteContent"
                     placeholder="Content"
                     onChange={e => this.updateContent(e.target.value)}
@@ -222,7 +220,7 @@ export default class AddNote extends React.Component {
                 <label htmlFor="folderSelection">Folder</label>
                 <select
                     id="folderSelection"
-                    name="folderSelection"
+                    title="folderSelection"
                 >
                     <AddFolderOptions folders={this.context.folders} />
                 </select>
@@ -230,9 +228,9 @@ export default class AddNote extends React.Component {
                 <CircleButton
                     tag='button'
                     type='submit'
-                    className='AddFolder__add-folder-submit'
+                    classtitle='AddFolder__add-folder-submit'
                     disabled={
-                        this.state.content.disabling || this.state.name.disabling
+                        this.state.content.disabling || this.state.title.disabling
                             ? true
                             : false
                     }
