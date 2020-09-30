@@ -48,7 +48,6 @@ class AddFolder extends Component {
 
         fetch(`${config.API_ENDPOINT}/folders`, {
             method: 'POST',
-            mode: 'no-cors',
             headers: {
                 'Content-Type': 'application/json'
             },

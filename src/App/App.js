@@ -20,28 +20,26 @@ class App extends Component {
     };
 
     componentDidMount() {
-        Promise.all([
-            fetch(`${config.API_ENDPOINT}/notes`, {
-                mode: 'no-cors'
-            }),
-            fetch(`${config.API_ENDPOINT}/folders`, {
-                mode: 'no-cors'
-            })
-        ])
-            .then(([notesRes, foldersRes]) => {
-                if (!notesRes.ok)
-                    return notesRes.json().then(e => Promise.reject(e));
-                if (!foldersRes.ok)
-                    return foldersRes.json().then(e => Promise.reject(e));
+        fetch(`${config.API_ENDPOINT}/notes`)
+            .then(res => res.json())
 
-                return Promise.all([notesRes.json(), foldersRes.json()]);
+            .then(noteRes => {
+                this.setState({
+                    notes: noteRes
+                })
             })
-            .then(([notes, folders]) => {
-                this.setState({ notes, folders });
+            .catch(err => console.log(err));
+
+        fetch(`${config.API_ENDPOINT}/folders`)
+            .then(res => res.json())
+            .then(folderRes => {
+                this.setState({
+                    folders: folderRes
+                })
             })
-            .catch(error => {
-                console.log(error);
-            });
+            .catch(err => console.log(err));
+
+
     }
 
     handleDeleteNote = noteId => {

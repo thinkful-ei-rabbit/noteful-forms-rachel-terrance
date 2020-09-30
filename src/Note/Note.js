@@ -24,7 +24,6 @@ export default class Note extends React.Component {
 
     console.log(noteId)
     fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
-      mode: 'no-cors',
       method: 'DELETE',
       headers: {
         'content-type': 'application/json'
