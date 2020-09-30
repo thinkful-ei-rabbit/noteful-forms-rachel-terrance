@@ -20,7 +20,7 @@ class App extends Component {
     };
 
     componentDidMount() {
-        fetch(`${config.API_ENDPOINT}/notes/`)
+        fetch(`${config.API_ENDPOINT}notes/`)
             .then(res => res.json())
 
             .then(noteRes => {
@@ -28,16 +28,16 @@ class App extends Component {
                     notes: noteRes
                 })
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err.message));
 
-        fetch(`${config.API_ENDPOINT}/folders/`)
+        fetch(`${config.API_ENDPOINT}folders/`)
             .then(res => res.json())
             .then(folderRes => {
                 this.setState({
                     folders: folderRes
                 })
             })
-            .catch(err => console.log(err));
+            .catch(err => console.log(err.message))
 
 
     }
