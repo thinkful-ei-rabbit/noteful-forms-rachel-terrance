@@ -42,16 +42,17 @@ class AddFolder extends Component {
     }
 
     handleForm = (e) => {
-
         e.preventDefault();
-        const name = e.target.folder.value;
+
+        const title = e.target.folder.value;
+
 
         fetch(`${config.API_ENDPOINT}/folders`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ name: name })
+            body: JSON.stringify({ title })
 
         })
             .then(res => {
