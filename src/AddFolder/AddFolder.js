@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import CircleButton from '../CircleButton/CircleButton'
 import config from '../config';
-import './AddFolder'
+import '../AddNote/NotefulForm.css'
 import ApiContext from '../ApiContext';
 import PropTypes from 'prop-types';
 
@@ -77,7 +77,7 @@ class AddFolder extends Component {
         return (
 
             <form className="newFolder" onSubmit={e => this.handleForm(e)} >
-                <h2>Add a new folder</h2>
+
                 <label htmlFor="folder">Folder name</label>
                 <input
                     type="text"
@@ -90,11 +90,7 @@ class AddFolder extends Component {
                 <CircleButton
                     type='submit'
                     className='AddFolder__add-folder-submit'
-                    input='Submit'
-
-                >
-                    Submit
-          </CircleButton>
+                    input='Submit' />
 
             </form >
         )

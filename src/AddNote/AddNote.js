@@ -5,7 +5,7 @@ import FormError from '../Errors/FormError'
 import ApiContext from '../ApiContext';
 import AddFolderOptions from './AddFolderOptions';
 import IsRequired from './IsRequired';
-import './AddNote.css';
+import './NotefulForm.css';
 
 import PropTypes from 'prop-types';
 
@@ -187,8 +187,7 @@ export default class AddNote extends React.Component {
 
         return (
             <form classtitle="newNote" onSubmit={e => this.handleForm(e)}>
-                <h2>Add a new note</h2>
-                <label htmlFor="notetitle">title</label>
+                <label htmlFor="notetitle">Title</label>
                 <input
                     type="text"
                     classtitle="registration__control"

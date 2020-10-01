@@ -1,0 +1,51 @@
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #dedede;
+    max-width: 332px;
+}
+
+form input,
+form textarea,
+form select {
+    font-size: 14px;
+    padding: 8px;
+    width: 300px;
+    background-color: #BDBDBD;
+    border: 0;
+
+}
+
+form input:focus,
+form textarea:focus,
+form select:focus,
+option:focus {
+    outline: 2px solid #FFB83E;
+}
+
+
+
+form select {
+    height: 33px;
+    width: 300px;
+
+}
+
+form select option {
+    width: 300px;
+}
+
+form label {
+    font-size: 16px;
+    padding: 12px;
+    align-self: flex-start;
+
+}
+
+
+.isRequired {
+    font-size: 12px;
+
+}

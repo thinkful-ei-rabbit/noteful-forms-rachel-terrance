@@ -13,12 +13,16 @@
   text-decoration: none;
   width: 60px;
   padding: 14px 8px 8px;
+  margin-top: 14px;
 }
 
-.NavCircleButton:hover {
+form button[type="submit"]:hover {
+  background-color: #29862e;
+  color: white;
   cursor: pointer;
-
 }
+
+
 
 .NavCircleButton:disabled {
   background-color: grey;
