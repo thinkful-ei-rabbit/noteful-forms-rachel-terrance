@@ -10,8 +10,8 @@ import PropTypes from 'prop-types';
 
 
 export default class Note extends React.Component {
-  static defaultProps = {
 
+  static defaultProps = {
     onDeleteNote: () => { },
   }
 
@@ -19,8 +19,10 @@ export default class Note extends React.Component {
 
   handleClickDelete = e => {
 
-    console.log(this.props)
+    console.log(this.props.id)
     const noteId = this.props.id
+
+    this.context.deleteNote(noteId)
 
     console.log(noteId)
     fetch(`${config.API_ENDPOINT}/notes/${noteId}`, {
@@ -41,37 +43,43 @@ export default class Note extends React.Component {
         console.error(error)
       })
 
-    this.context.deleteNote(noteId)
+
   }
 
   render() {
-    const { name, id, modified } = this.props
+    const { name, id, modified, display } = this.props
+    const noteClass = `Note ${display}`
     return (
-      <div className='Note'>
-        <h2 className='Note__title'>
-          <Link to={`/note/${id}`}>
-            {name}
-          </Link>
-        </h2>
+
+      <div className={noteClass}>
+        <div className='Note__content'>
+
+          <h2 className='Note__title'>
+            <Link to={`/note/${id}`}>
+              {name}
+            </Link>
+          </h2>
+
+
+          <div>
+            <span>Modified</span>
+            <span className='Date'>
+              {format(modified, 'DD MMM YYYY')}
+            </span>
+
+          </div>
+
+        </div>
         <button
           className='Note__delete'
           type='button'
           onClick={this.handleClickDelete}
         >
           <FontAwesomeIcon icon='trash-alt' />
-          {' '}
-          remove
+          <span>remove</span>
         </button>
-        <div className='Note__dates'>
-          <div className='Note__dates-modified'>
-            Modified
-            {' '}
-            <span className='Date'>
-              {format(modified, 'Do MMM YYYY')}
-            </span>
-          </div>
-        </div>
       </div>
+
     )
   }
 }

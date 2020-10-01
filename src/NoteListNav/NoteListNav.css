@@ -1,11 +1,23 @@
 .NoteListNav__list {
   list-style-type: none;
   margin: 130px 0 0;
-  padding: 0;
+
   width: inherit;
 }
 
+.NoteListNav {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center
+}
+
 ul {
+  width: inherit;
+}
+
+main ul li {
+  height: 88px;
   width: inherit;
 }
 
@@ -31,8 +43,9 @@ div {
   margin: 0 0 8px auto;
   width: 100%;
   height: 40px;
-  padding: 8px 16px;
+  padding: 8px;
   text-decoration: none;
+  overflow: hidden;
 }
 
 .NoteListNav__folder-link:hover {
